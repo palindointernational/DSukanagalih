@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use Database\Seeders\UserSeeder;
+use Database\Seeders\VulnerableCategorySeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,12 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Super Admin',
-            'email' => 'superadmin@admin.com',
-            'password' => bcrypt('password'),
+        $this->call([
+            UserSeeder::class,
+            VulnerableCategorySeeder::class,
         ]);
+
     }
 }

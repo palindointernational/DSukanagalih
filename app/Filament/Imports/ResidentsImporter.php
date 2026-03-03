@@ -86,10 +86,10 @@ class ResidentsImporter extends Importer
         ];
     }
 
-    // public function resolveRecord(): Resident
-    // {
-    //     return new Resident();
-    // }
+    public function resolveRecord(): Resident
+    {
+        return new Resident();
+    }
 
     public static function getCompletedNotificationBody(Import $import): string
     {

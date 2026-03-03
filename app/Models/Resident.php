@@ -29,4 +29,9 @@ class Resident extends Model
     protected $casts = [
         'tgl_lahir' => 'date',
     ];
+
+    public function vulnerableResident()
+    {
+        return $this->hasOne(VulnerableResident::class, 'resident_id');
+    }
 }
