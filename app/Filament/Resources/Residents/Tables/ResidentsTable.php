@@ -30,6 +30,8 @@ class ResidentsTable
                     ->searchable(),
                 TextColumn::make('nama')
                     ->label('Nama')
+                    ->limit(15)
+                    ->tooltip(fn($record) => $record->nama)
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('temp_lahir', 'tgl_lahir')
@@ -45,6 +47,8 @@ class ResidentsTable
                     ->searchable(),
                 TextColumn::make('alamat', 'rt', 'rw')
                     ->label('Alamat')
+                    ->limit(15)
+                    ->tooltip(fn($record) => $record->alamat . ',' . ' ' . 'RT' . ' ' . $record->rt . ' ' . 'RW' . ' ' . $record->rw)
                     ->formatStateUsing(function ($state, $record) {
                         return "{$state}, RT {$record->rt} / RW {$record->rw}";
                     })

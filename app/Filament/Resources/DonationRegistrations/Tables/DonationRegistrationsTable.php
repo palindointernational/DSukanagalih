@@ -40,7 +40,6 @@ class DonationRegistrationsTable
                         'Verified'  => 'heroicon-o-check-circle',
                         'Rejected'  => 'heroicon-o-x-circle',
                         'Cancelled' => 'heroicon-o-x-mark',
-                        'Failed'    => 'heroicon-o-x-mark',
                     })
                     ->color(fn(string $state): string => match ($state) {
                         'Pending'   => 'warning',
@@ -48,7 +47,6 @@ class DonationRegistrationsTable
                         'Verified'  => 'success',
                         'Rejected'  => 'danger',
                         'Cancelled' => 'warning',
-                        'Failed'    => 'danger',
                     }),
             ])
             ->filters([
@@ -83,15 +81,15 @@ class DonationRegistrationsTable
                             ]);
                         }),
 
-                    Action::make('failed')
-                        ->label('Mark as Failed')
+                    Action::make('cancelled')
+                        ->label('Mark as Cancelled')
                         ->icon('heroicon-o-exclamation-circle')
                         ->color('warning')
                         ->visible(fn($record) => $record->status === 'Delivered')
                         ->requiresConfirmation()
                         ->action(function ($record) {
                             $record->update([
-                                'status' => 'Failed',
+                                'status' => 'Cancelled',
                             ]);
                         }),
                     Action::make('generateInvoice')

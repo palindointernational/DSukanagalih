@@ -30,3 +30,10 @@ ImportColumn::make('no_kk')
                 ->requiredMapping(),
             ImportColumn::make('rw')
                 ->requiredMapping(),
+
+                <script src="https://js.pusher.com/beams/2.1.0/push-notifications-cdn.js"></script>
+
+                app_id = "2123276"
+key = "945c4cd2d8be8c97c3f6"
+secret = "49eba5a386988adb5238"
+cluster = "ap1"
