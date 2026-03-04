@@ -26,6 +26,7 @@ class DonationForm
                             ->image()
                             ->directory('donations')
                             ->visibility('public')
+                            ->disk('public')
                             ->imageEditor()
                             ->maxSize(5120)
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])

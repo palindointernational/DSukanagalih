@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->integer('quantity');
             $table->string('proof_photo')->nullable();
-            $table->enum('status', ['Pending', 'Delivered', 'Verified'])->default('Pending');
+            $table->enum('status', ['Pending', 'Delivered', 'Verified', 'Rejected', 'Cancelled', 'Failed'])->default('Pending');
             $table->timestamps();
             $table->unique(['donation_id', 'user_id']);
         });

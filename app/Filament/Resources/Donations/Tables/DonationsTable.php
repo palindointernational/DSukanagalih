@@ -22,9 +22,9 @@ class DonationsTable
             ->columns([
                 ImageColumn::make('image')
                     ->label('Banner')
-                    ->circular(true)
-                    ->visibility('public')
                     ->disk('public')
+                    ->visibility('public')
+                    ->circular(true)
                     ->height(60),
                 TextColumn::make('title')
                     ->label('Judul Donasi')
