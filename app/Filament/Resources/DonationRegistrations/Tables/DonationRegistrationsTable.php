@@ -18,8 +18,11 @@ class DonationRegistrationsTable
     {
         return $table
             ->columns([
-                TextColumn::make('user.name')
+                TextColumn::make('name')
                     ->label('Pemberi Donasi')
+                    ->searchable(),
+                TextColumn::make('contact')
+                    ->label('Kontak')
                     ->searchable(),
                 TextColumn::make('donation.title')
                     ->label('Donasi')

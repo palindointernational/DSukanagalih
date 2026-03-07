@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Donation extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'title',
+        'slug',
         'image',
         'description',
         'item_name',
@@ -23,7 +27,13 @@ class Donation extends Model
     {
         return $this->hasMany(DonationRegistration::class);
     }
-
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($donation) {
+            $donation->slug = Str::slug($donation->title);
+        });
+    }
     public function getCollectedAttribute()
     {
         return $this->registrations()

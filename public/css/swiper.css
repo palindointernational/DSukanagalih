@@ -1,0 +1,27 @@
+.swiper-button-next,
+.swiper-button-prev {
+    color: #ff7112;
+    transition: 0.2s;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    transform: scale(1.2);
+}
+
+.swiper {
+    padding-bottom: 40px;
+}
+
+.swiper-pagination {
+    bottom: 0px !important;
+}
+
+.swiper-pagination-bullet {
+    background: #d1d5db;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background: #ff7112;
+}

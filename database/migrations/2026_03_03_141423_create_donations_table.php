@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('donations', function (Blueprint $table) {
             $table->id();
+            $table->string('image')->nullable();
             $table->string('title');
+            $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->string('item_name');
             $table->integer('target_quantity');
-            $table->string('unit');
+            $table->enum('unit', ['PCS', 'KG', 'Liter', 'Dus/Karton', 'Unit']);
             $table->text('delivery_address');
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();

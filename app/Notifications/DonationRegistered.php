@@ -44,17 +44,9 @@ class DonationRegistered extends Notification implements ShouldBroadcast
     {
         return [
             'title' => 'Pendaftar Donasi Baru',
-            'donation_id' => $this->registration->donation_id,
-            'registration_id' => $this->registration->id,
-        ];
-    }
-
-    public function toDatabase(User $notifiable): array
-    {
-        return [
-            'title' => 'Pendaftar Donasi Baru',
-            'body' => 'Ada Donasi baru Masuk',
-            'registration_id' => $this->registration->id
+            'body' => $this->registration->name . ' baru saja melakukan donasi.',
+            'icon' => 'heroicon-o-gift',
+            'url' => '/admin/donation-registrations/' . $this->registration->id,
         ];
     }
 }

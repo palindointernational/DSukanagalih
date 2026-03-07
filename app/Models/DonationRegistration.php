@@ -9,6 +9,8 @@ class DonationRegistration extends Model
     protected $fillable = [
         'donation_id',
         'user_id',
+        'name',
+        'contact',
         'quantity',
         'proof_photo',
         'status',

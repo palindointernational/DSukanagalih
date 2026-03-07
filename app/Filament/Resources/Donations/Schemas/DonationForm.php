@@ -60,11 +60,11 @@ class DonationForm
                                     ->label('Unit')
                                     ->native(false)
                                     ->options([
-                                        'pcs' => 'Pcs',
-                                        'kg' => 'KG',
-                                        'liter' => 'Liter',
-                                        'dus/karton' => 'Dus/Karton',
-                                        'unit' => 'Unit',
+                                        'PCS' => 'Pcs',
+                                        'KG' => 'KG',
+                                        'Liter' => 'Liter',
+                                        'Dus/Karton' => 'Dus/Karton',
+                                        'Unit' => 'Unit',
                                     ])
                                     ->required()
                             ]),

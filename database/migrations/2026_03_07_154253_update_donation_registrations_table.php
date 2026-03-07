@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('donations', function (Blueprint $table) {
-            $table->string('image')->nullable()->after('description');
+        Schema::table('donation_registrations', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete()->nullable()->after('donation_id');
         });
     }
 
@@ -21,8 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('donations', function (Blueprint $table) {
-            //
-        });
+        Schema::table('donation_registrations', function (Blueprint $table) {});
     }
 };
