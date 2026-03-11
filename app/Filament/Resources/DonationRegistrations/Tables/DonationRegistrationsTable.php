@@ -7,6 +7,7 @@ use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -65,13 +66,28 @@ class DonationRegistrationsTable
                         ->icon('heroicon-o-check-circle')
                         ->color('success')
                         ->visible(fn($record) => $record->status === 'Delivered')
+
                         ->requiresConfirmation()
-                        ->action(function ($record) {
+                        ->form([
+                            FileUpload::make('proof_photo')
+                                ->label('Bukti Donasi')
+                                ->image()
+                                ->maxSize(5120)
+                                ->visibility('public')
+                                ->disk('public')
+                                ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                                ->validationMessages([
+                                    'max' => 'Ukuran gambar maksimal 5MB.',
+                                ])
+                                ->required()
+                                ->directory('proof-images'),
+                        ])
+                        ->action(function ($record, array $data) {
                             $record->update([
                                 'status' => 'Verified',
+                                'proof_photo' => $data['proof_photo'],
                             ]);
                         }),
-
                     Action::make('reject')
                         ->label('Reject')
                         ->icon('heroicon-o-x-circle')

@@ -31,11 +31,11 @@ class DonationRegistrationResource extends Resource
     protected static ?int $navigationSort = 5;
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::where('status', 'pending')->count();
+        return static::getModel()::where('status', 'delivered')->count();
     }
     public static function getNavigationBadgeTooltip(): ?string
     {
-        return 'Data with status pending';
+        return 'Data with status delivered';
     }
     public static function form(Schema $schema): Schema
     {

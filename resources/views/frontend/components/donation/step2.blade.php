@@ -32,14 +32,19 @@
             <form action="{{ route('donationPost', $donation->slug) }}" method="POST">
                 @csrf
                 <div class="mb-4">
-                    <label for="quantity" class="block mb-2.5 text-sm font-medium text-heading">Isi Jumlah
-                        Donasi</label>
+                    <label for="quantity_display" class="block mb-2.5 text-sm font-medium text-heading">
+                        Isi Jumlah Donasi
+                    </label>
+
                     <div class="flex shadow-xs rounded-lg">
-                        <input type="text" id="quantity" name="quantity" min="1" value="1"
-                            class="bg-neutral-secondary-medium border border-gray-200 border-default-medium text-heading text-xl font-bold rounded-s-lg rounded-e-0 block w-full px-3 py-4 shadow-xs placeholder:text-body focus:ring-brand focus:border-brand"
-                            required autofocus />
+                        <input type="text" id="quantity_display" value="1"
+                            class="bg-neutral-secondary-medium border border-gray-200 text-heading text-xl font-bold rounded-s-lg block w-full px-3 py-4 placeholder:text-body focus:ring-brand focus:border-brand"
+                            required />
+
+                        <input type="hidden" id="quantity" name="quantity" value="1">
+
                         <span
-                            class="inline-flex items-center px-3 text-xl font-bold text-body bg-neutral-tertiary border rounded-s-0 border-default-medium border-s-0 rounded-e-lg">
+                            class="inline-flex items-center px-3 text-xl font-bold text-body bg-neutral-tertiary border border-default-medium border-s-0 rounded-e-lg">
                             KG
                         </span>
                     </div>
@@ -71,21 +76,21 @@
     </div>
 </section>
 <script>
-    const quantityInput = document.getElementById('quantity');
+    const displayInput = document.getElementById('quantity_display');
+    const realInput = document.getElementById('quantity');
 
-    quantityInput.addEventListener('input', function(e) {
+    displayInput.addEventListener('input', function() {
 
         let value = this.value.replace(/\D/g, '');
 
         if (value) {
             this.value = new Intl.NumberFormat('id-ID').format(value);
+            realInput.value = value;
         } else {
             this.value = '';
+            realInput.value = '';
         }
-    });
 
-    document.querySelector('form').addEventListener('submit', function() {
-        quantityInput.value = quantityInput.value.replace(/\./g, '');
     });
 </script>
 @include('frontend.partials.footer')
