@@ -73,6 +73,7 @@ class AdminPanelProvider extends PanelProvider
 
                         return redirect('/');
                     }),
+
             ]);
     }
 }

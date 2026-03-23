@@ -15,81 +15,132 @@ class DashboardSummary extends StatsOverviewWidget
     protected function getStats(): array
     {
         $mode = $this->filters['mode'] ?? 'residents';
-        if ($mode === 'residents') {
 
+        if ($mode === 'residents') {
             return [
                 Stat::make('Total Penduduk', number_format(Resident::count()))
-                    ->icon('heroicon-o-user-group')
+                    ->icon('heroicon-o-users')
                     ->color('primary')
+                    ->chart([10, 20, 15, 25, 30, 28, 35])
                     ->columnSpan('full'),
 
-                Stat::make('Total Bayi', number_format(Resident::whereBetween('tgl_lahir', [
-                    now()->subYears(2),
-                    now()
-                ])->count())),
+                Stat::make('Total Bayi (0-2)', number_format(
+                    Resident::whereBetween('tgl_lahir', [
+                        now()->subYears(2),
+                        now()
+                    ])->count()
+                ))
+                    ->icon('heroicon-o-face-smile')
+                    ->color('info')
+                    ->chart([5, 8, 6, 9, 7, 10]),
 
-                Stat::make('Total Balita', number_format(Resident::whereBetween('tgl_lahir', [
-                    now()->subYears(5),
-                    now()->subYears(2)
-                ])->count())),
+                Stat::make('Total Balita (2-5)', number_format(
+                    Resident::whereBetween('tgl_lahir', [
+                        now()->subYears(5),
+                        now()->subYears(2)
+                    ])->count()
+                ))
+                    ->icon('heroicon-o-puzzle-piece')
+                    ->color('success')
+                    ->chart([7, 6, 8, 9, 10, 12]),
 
-                Stat::make('Total Anak-Anak', number_format(Resident::whereBetween('tgl_lahir', [
-                    now()->subYears(12),
-                    now()->subYears(6)
-                ])->count()))
+                Stat::make('Anak-Anak (6-12)', number_format(
+                    Resident::whereBetween('tgl_lahir', [
+                        now()->subYears(12),
+                        now()->subYears(6)
+                    ])->count()
+                ))
+                    ->icon('heroicon-o-academic-cap')
+                    ->color('primary')
+                    ->chart([15, 18, 17, 20, 22, 25])
                     ->columnSpan(2),
 
-                Stat::make('Lansia Pria', number_format(Resident::where('jk', 'L')
-                    ->whereDate('tgl_lahir', '<=', now()->subYears(60))
-                    ->count())),
+                Stat::make('Lansia Pria', number_format(
+                    Resident::where('jk', 'L')
+                        ->whereDate('tgl_lahir', '<=', now()->subYears(60))
+                        ->count()
+                ))
+                    ->icon('heroicon-o-user')
+                    ->color('warning')
+                    ->chart([12, 14, 13, 15, 16]),
 
-                Stat::make('Lansia Wanita', number_format(Resident::where('jk', 'P')
-                    ->whereDate('tgl_lahir', '<=', now()->subYears(60))
-                    ->count())),
+                Stat::make('Lansia Wanita', number_format(
+                    Resident::where('jk', 'P')
+                        ->whereDate('tgl_lahir', '<=', now()->subYears(60))
+                        ->count()
+                ))
+                    ->icon('heroicon-o-user')
+                    ->color('warning')
+                    ->chart([10, 12, 11, 13, 14]),
 
-                Stat::make('Non Rentan Pria', number_format(Resident::where('jk', 'L')
-                    ->whereBetween('tgl_lahir', [
-                        now()->subYears(59),
-                        now()->subYears(12)
-                    ])
-                    ->count())),
+                Stat::make('Non Rentan Pria', number_format(
+                    Resident::where('jk', 'L')
+                        ->whereBetween('tgl_lahir', [
+                            now()->subYears(59),
+                            now()->subYears(12)
+                        ])
+                        ->count()
+                ))
+                    ->icon('heroicon-o-shield-check')
+                    ->color('success')
+                    ->chart([20, 22, 21, 23, 25]),
 
-                Stat::make('Non Rentan Wanita', number_format(Resident::where('jk', 'P')
-                    ->whereBetween('tgl_lahir', [
-                        now()->subYears(59),
-                        now()->subYears(12)
-                    ])
-                    ->count())),
+                Stat::make('Non Rentan Wanita', number_format(
+                    Resident::where('jk', 'P')
+                        ->whereBetween('tgl_lahir', [
+                            now()->subYears(59),
+                            now()->subYears(12)
+                        ])
+                        ->count()
+                ))
+                    ->icon('heroicon-o-shield-check')
+                    ->color('success')
+                    ->chart([18, 20, 19, 21, 23]),
             ];
         }
+
         return [
             Stat::make('Total Penduduk Rentan', number_format(VulnerableResident::count()))
                 ->icon('heroicon-o-exclamation-triangle')
-                ->columnSpan('2'),
-            Stat::make(
-                'Ibu Hamil/Menyusui',
-                number_format(VulnerableResident::where('category_id', 4)->count())
-            )->columnSpan('2'),
+                ->color('danger')
+                ->chart([30, 35, 33, 37, 40])
+                ->columnSpan(2),
 
-            Stat::make(
-                'Difabel Fisik',
-                number_format(VulnerableResident::whereIn('category_id', [7, 8])->count())
-            ),
+            Stat::make('Ibu Hamil/Menyusui', number_format(
+                VulnerableResident::where('category_id', 4)->count()
+            ))
+                ->icon('heroicon-o-heart')
+                ->color('danger')
+                ->chart([5, 6, 7, 8, 7])
+                ->columnSpan(2),
 
-            Stat::make(
-                'Difabel Mental',
-                number_format(VulnerableResident::whereIn('category_id', [9, 10])->count())
-            ),
+            Stat::make('Difabel Fisik', number_format(
+                VulnerableResident::whereIn('category_id', [7, 8])->count()
+            ))
+                ->icon('heroicon-o-exclamation-circle')
+                ->color('warning')
+                ->chart([8, 9, 10, 11, 12]),
 
-            Stat::make(
-                'Lansia Pria (Risiko Tinggi)',
-                number_format(VulnerableResident::where('category_id', 5)->count())
-            ),
+            Stat::make('Difabel Mental', number_format(
+                VulnerableResident::whereIn('category_id', [9, 10])->count()
+            ))
+                ->icon('heroicon-o-star')
+                ->color('info')
+                ->chart([6, 7, 6, 8, 9]),
 
-            Stat::make(
-                'Lansia Wanita (Risiko Tinggi)',
-                number_format(VulnerableResident::where('category_id', 6)->count())
-            ),
+            Stat::make('Lansia Pria (Risiko Tinggi)', number_format(
+                VulnerableResident::where('category_id', 5)->count()
+            ))
+                ->icon('heroicon-o-user')
+                ->color('danger')
+                ->chart([10, 12, 11, 13, 14]),
+
+            Stat::make('Lansia Wanita (Risiko Tinggi)', number_format(
+                VulnerableResident::where('category_id', 6)->count()
+            ))
+                ->icon('heroicon-o-user')
+                ->color('danger')
+                ->chart([9, 10, 11, 12, 13]),
         ];
     }
 
