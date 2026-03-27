@@ -24,7 +24,7 @@ class DashboardSummary extends StatsOverviewWidget
                     ->chart([10, 20, 15, 25, 30, 28, 35])
                     ->columnSpan('full'),
 
-                Stat::make('Total Bayi (0-2)', number_format(
+                Stat::make('Total Bayi (0-2 Tahun)', number_format(
                     Resident::whereBetween('tgl_lahir', [
                         now()->subYears(2),
                         now()
@@ -34,7 +34,7 @@ class DashboardSummary extends StatsOverviewWidget
                     ->color('info')
                     ->chart([5, 8, 6, 9, 7, 10]),
 
-                Stat::make('Total Balita (2-5)', number_format(
+                Stat::make('Total Balita (2-5 Tahun)', number_format(
                     Resident::whereBetween('tgl_lahir', [
                         now()->subYears(5),
                         now()->subYears(2)
@@ -44,7 +44,7 @@ class DashboardSummary extends StatsOverviewWidget
                     ->color('success')
                     ->chart([7, 6, 8, 9, 10, 12]),
 
-                Stat::make('Anak-Anak (6-12)', number_format(
+                Stat::make('Anak-Anak (6-12 Tahun)', number_format(
                     Resident::whereBetween('tgl_lahir', [
                         now()->subYears(12),
                         now()->subYears(6)
@@ -55,7 +55,7 @@ class DashboardSummary extends StatsOverviewWidget
                     ->chart([15, 18, 17, 20, 22, 25])
                     ->columnSpan(2),
 
-                Stat::make('Lansia Pria', number_format(
+                Stat::make('Lansia Pria ( >60 Tahun)', number_format(
                     Resident::where('jk', 'L')
                         ->whereDate('tgl_lahir', '<=', now()->subYears(60))
                         ->count()
@@ -64,7 +64,7 @@ class DashboardSummary extends StatsOverviewWidget
                     ->color('warning')
                     ->chart([12, 14, 13, 15, 16]),
 
-                Stat::make('Lansia Wanita', number_format(
+                Stat::make('Lansia Wanita ( >60 Tahun)', number_format(
                     Resident::where('jk', 'P')
                         ->whereDate('tgl_lahir', '<=', now()->subYears(60))
                         ->count()
@@ -73,7 +73,7 @@ class DashboardSummary extends StatsOverviewWidget
                     ->color('warning')
                     ->chart([10, 12, 11, 13, 14]),
 
-                Stat::make('Non Rentan Pria', number_format(
+                Stat::make('Non Rentan Pria (12-59 Tahun)', number_format(
                     Resident::where('jk', 'L')
                         ->whereBetween('tgl_lahir', [
                             now()->subYears(59),
@@ -85,7 +85,7 @@ class DashboardSummary extends StatsOverviewWidget
                     ->color('success')
                     ->chart([20, 22, 21, 23, 25]),
 
-                Stat::make('Non Rentan Wanita', number_format(
+                Stat::make('Non Rentan Wanita (12-59 Tahun)', number_format(
                     Resident::where('jk', 'P')
                         ->whereBetween('tgl_lahir', [
                             now()->subYears(59),
